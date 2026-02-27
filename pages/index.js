@@ -46,7 +46,9 @@ export default function Home() {
         <Card title="Lowest Region" value={kpi.lowest} />
       </div>
 
-      <div style={{ ...styles.sectionTitle, marginTop: 24 }}>Regions Overview</div>
+      <div style={{ ...styles.sectionTitle, marginTop: 24 }}>
+        Regions Overview
+      </div>
 
       <div style={styles.tableWrap}>
         <table style={styles.table}>
@@ -72,7 +74,12 @@ export default function Home() {
                   <td style={styles.td}>{r.cm}%</td>
                   <td style={styles.tdStrong}>{r.overall}%</td>
                   <td style={styles.td}>{r.target}%</td>
-                  <td style={{ ...styles.td, color: gap >= 0 ? "#0a7d3b" : "#c81e1e" }}>
+                  <td
+                    style={{
+                      ...styles.td,
+                      color: gap >= 0 ? "#0a7d3b" : "#c81e1e",
+                    }}
+                  >
                     {gap >= 0 ? `+${gap}%` : `${gap}%`}
                   </td>
                   <td
@@ -131,7 +138,12 @@ const styles = {
     fontWeight: 800,
     color: "#1e293b",
   },
-  sectionTitle: { marginTop: 16, fontSize: 16, fontWeight: 800, color: "#0f172a" },
+  sectionTitle: {
+    marginTop: 16,
+    fontSize: 16,
+    fontWeight: 800,
+    color: "#0f172a",
+  },
   grid: {
     marginTop: 12,
     display: "grid",
