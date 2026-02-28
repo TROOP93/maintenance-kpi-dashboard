@@ -1,3 +1,3 @@
-export default function App({ Component, pageProps }) {
-  return <Component {...pageProps} />;
+export default function Page() {
+  return <div style={{ padding: 40 }}>Coming Soon</div>;
 }
