@@ -9,9 +9,8 @@ export default function Layout({ children }) {
         {children}
       </div>
 
-      {/* Sidebar on RIGHT */}
+      {/* Sidebar Right */}
       <Sidebar />
-
     </div>
   );
 }
