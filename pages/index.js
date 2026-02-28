@@ -51,12 +51,12 @@ export default function Home() {
     <Layout>
       <h1 style={{ marginBottom: 16 }}>Maintenance Performance Dashboard</h1>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(180px, 1fr))", gap: 12, marginBottom: 16 }}>
-        <KpiCard title="PM Completion" value={`${summary.pmPct}%`} subtitle={`${summary.pmCompleted}/${summary.pmPlanned}`} />
-        <KpiCard title="CM Completion" value={`${summary.cmPct}%`} subtitle={`${summary.cmCompleted}/${summary.cmPlanned}`} />
-        <KpiCard title="Total Employees" value={`${summary.totalEmployees}`} subtitle="All regions" />
-        <KpiCard title="Last Update" value={data?.lastUpdated ? new Date(data.lastUpdated).toLocaleString() : "—"} subtitle="Local" />
-      </div>
+   <div style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(180px, 1fr))", gap: 12, marginBottom: 16 }}>
+  <KpiCard title="PM Completion" value={`${summary.pmPct}%`} subtitle={`${summary.pmCompleted}/${summary.pmPlanned}`} pct={summary.pmPct} />
+  <KpiCard title="CM Completion" value={`${summary.cmPct}%`} subtitle={`${summary.cmCompleted}/${summary.cmPlanned}`} pct={summary.cmPct} />
+  <KpiCard title="Total Employees" value={`${summary.totalEmployees}`} subtitle="All regions" />
+  <KpiCard title="Last Update" value={data?.lastUpdated ? new Date(data.lastUpdated).toLocaleString() : "—"} subtitle="Local" />
+</div>
 
       <RegionTable regions={data?.regions || {}} />
     </Layout>
