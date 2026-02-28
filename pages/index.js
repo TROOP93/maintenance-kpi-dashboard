@@ -17,10 +17,24 @@ export default function Home() {
   const [data, setData] = useState(DEFAULT_DATA);
 
   useEffect(() => {
-    // load from localStorage safely on client only
+  const load = () => {
     const saved = loadData();
     if (saved && saved.regions) setData(saved);
-  }, []);
+  };
+
+  // أول تحميل
+  load();
+
+  // تحديث تلقائي إذا تغيرت البيانات
+  const onUpdate = () => load();
+  window.addEventListener("kpi-data-updated", onUpdate);
+  window.addEventListener("storage", onUpdate);
+
+  return () => {
+    window.removeEventListener("kpi-data-updated", onUpdate);
+    window.removeEventListener("storage", onUpdate);
+  };
+}, []);
 
   const summary = useMemo(() => {
     const regions = data?.regions || {};
