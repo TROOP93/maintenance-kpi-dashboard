@@ -1,24 +1,28 @@
-export default function KpiCard({ title, value, subtitle }) {
+import ProgressBar from "./ProgressBar";
+
+export default function KpiCard({ title, value, subtitle, pct }) {
   return (
     <div
       style={{
-        background: "white",
-        padding: "16px",
-        borderRadius: "12px",
-        boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
+        background: "#fff",
+        border: "1px solid rgba(15,23,42,0.08)",
+        borderRadius: 14,
+        padding: 14,
+        boxShadow: "0 6px 18px rgba(15,23,42,0.06)",
       }}
     >
-      <div style={{ fontSize: 14, color: "#666", marginBottom: 6 }}>
-        {title}
+      <div style={{ fontSize: 12, letterSpacing: 0.2, opacity: 0.75, marginBottom: 8 }}>{title}</div>
+
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 12 }}>
+        <div style={{ fontSize: 26, fontWeight: 800, color: "#0f172a" }}>{value}</div>
+        <div style={{ fontSize: 12, opacity: 0.65 }}>{subtitle}</div>
       </div>
 
-      <div style={{ fontSize: 26, fontWeight: "bold" }}>
-        {value}
-      </div>
-
-      <div style={{ fontSize: 12, color: "#999", marginTop: 4 }}>
-        {subtitle}
-      </div>
+      {typeof pct === "number" ? (
+        <div style={{ marginTop: 10 }}>
+          <ProgressBar value={pct} height={10} />
+        </div>
+      ) : null}
     </div>
   );
 }
