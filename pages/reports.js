@@ -1,41 +1,56 @@
+import { useEffect, useState } from "react";
 import Layout from "../components/Layout";
+import DashboardView from "../components/DashboardView";
+import { loadData } from "../lib/storage";
+
+const DEFAULT_DATA = { lastUpdated: null, regions: {} };
 
 export default function Reports() {
-  const exportPdf = () => {
-    window.print(); // Print -> Save as PDF
-  };
+  const [data, setData] = useState(DEFAULT_DATA);
+
+  useEffect(() => {
+    const saved = loadData();
+    if (saved && saved.regions) setData(saved);
+  }, []);
+
+  const printPdf = () => window.print();
 
   return (
     <Layout>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12 }}>
-        <div>
-          <div style={{ fontSize: 20, fontWeight: 900 }}>Reports</div>
-          <div style={{ color: "#64748b", marginTop: 6 }}>
-            Export PDF (Print to PDF)
-          </div>
-        </div>
-
+      {/* ✅ هذا الجزء يظهر بالشاشة فقط */}
+      <div className="no-print" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
+        <h2 style={{ margin: 0 }}>Reports</h2>
         <button
-          onClick={exportPdf}
-          style={{
-            padding: "10px 14px",
-            borderRadius: 12,
-            border: 0,
-            background: "#0f172a",
-            color: "#fff",
-            cursor: "pointer",
-            fontWeight: 900,
-          }}
+          onClick={printPdf}
+          style={{ padding: "10px 14px", borderRadius: 12, border: 0, background: "#2563eb", color: "#fff", fontWeight: 900, cursor: "pointer" }}
         >
-          Export PDF
+          Export PDF (Print)
         </button>
       </div>
 
-      <div style={{ marginTop: 16, background: "#fff", borderRadius: 14, padding: 14, boxShadow: "0 8px 24px rgba(15,23,42,0.08)" }}>
-        <p style={{ margin: 0, color: "#64748b" }}>
-          هنا لاحقًا نخلي التقرير يجيب بيانات المناطق من Data Entry ويعرضها بشكل مرتب قبل التصدير.
-        </p>
+      {/* ✅ هذا هو الداشبورد اللي بينطبع */}
+      <div id="print-area">
+        <DashboardView data={data} />
       </div>
+
+      {/* ✅ ستايل الطباعة */}
+      <style jsx global>{`
+        @media print {
+          .no-print { display: none !important; }
+          /* نخفي السايدبار بالكامل وقت الطباعة */
+          aside, .sidebar, nav { display: none !important; }
+
+          /* نخلي المحتوى ياخذ كامل الصفحة */
+          #print-area { width: 100% !important; }
+
+          /* ننظف الهوامش */
+          body { margin: 0; }
+        }
+      `}</style>
     </Layout>
   );
+}
+
+export async function getServerSideProps() {
+  return { props: {} };
 }
